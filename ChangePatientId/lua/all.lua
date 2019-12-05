@@ -11,14 +11,6 @@ function OnStoredInstance(instanceId, tags, metadata, origin)
 
   local config = READCONFIG.readFile();
 
-  local info = {}
-  info['event'] = 'OnStoredInstance'
-  info['instanceId'] = instanceId
-  info['origin'] = origin
-  info['metadata'] = metadata
-  info['tags'] = tags
-
-
   if(config['ENFORCE_UNIQUE_PATIENT'] ~= nil) then
     ENFORCE_UNIQUE_PATIENT = config['ENFORCE_UNIQUE_PATIENT']
   end
