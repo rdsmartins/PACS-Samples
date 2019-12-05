@@ -1,0 +1,24 @@
+version: '2'
+services:
+  orthanc-http-a:
+    image: osimis/orthanc
+    depends_on: [index]
+    volumes: ['/tmp/OrthancDB/:/var/lib/orthanc/db:Z', "./lua:/etc/lua/",]
+    ports: ['8042:8042']
+    environment:
+      NAME: "Orthanc HTTP A"
+      WVB_ENABLED: "true"
+      DW_ENABLED: "true"
+      PG_HOST: "index"
+      LUA_SCRIPTS: "[\"/etc/lua/all.lua\"]"
+
+    restart: unless-stopped
+
+  index:
+    image: postgres
+    ports: ['5432:5432']
+    volumes: ['index:/var/lib/postgresql/data:Z']
+    restart: unless-stopped
+
+volumes:
+        index:
